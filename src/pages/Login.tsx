@@ -1,22 +1,22 @@
 import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
-    setSuccess("");
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setSuccess("Logged in.");
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      navigate("/dashboard");
     } catch {
       setError("Wrong email or password.");
     } finally {
@@ -53,7 +53,6 @@ export default function Login() {
         </button>
       </form>
       {error && <p className="mt-3 text-red-600">{error}</p>}
-      {success && <p className="mt-3 text-green-600">{success}</p>}
     </div>
   );
 }
