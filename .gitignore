@@ -25,3 +25,4 @@ dist-ssr
 # Environment variables (Firebase keys go here later)
 .env
 .env.*
+!.env.example
