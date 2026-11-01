@@ -1,75 +1,28 @@
-# React + TypeScript + Vite
+# NexaCRM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NexaCRM is a React, TypeScript, Vite, and Firebase CRM starter.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Copy `.env.example` to `.env` and add the Firebase web app configuration.
+2. Enable Email/Password sign-in and create a Cloud Firestore database in the Firebase project.
+3. Publish the rules in `firestore.rules` to that Firestore database. You can paste them into the Firebase Console under **Firestore Database → Rules**.
+4. Install dependencies with `npm install`, then run `npm run dev`.
 
-## React Compiler
+The customer list and customer create/edit form use Firestore. Customer documents are stored in the `customers` collection and include `ownerId`, `firstName`, `lastName`, `email`, `status`, `value`, `createdAt`, and `updatedAt`; `phone`, `company`, and `notes` are optional.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The deals pipeline and create/edit form also use Firestore. Deal documents in `deals` include `ownerId`, `customerId`, `title`, `stage`, `amount`, `createdAt`, and `updatedAt`; `closeDate` and `notes` are optional. A deal must reference a customer owned by the same signed-in user. The rules in `firestore.rules` enforce owner-scoped reads and writes for both collections.
 
-## Expanding the ESLint configuration
+Tasks are stored in the `tasks` collection and include `ownerId`, `assigneeId`, `title`, `status`, `createdAt`, and `updatedAt`; `dueDate` and `relatedCustomerId` are optional. Tasks can only be assigned to their owner, and linked customers must also belong to that owner.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The dashboard reads the signed-in user's customers, deals, and tasks from Firestore. It also shows recent activity from the `activities` collection. Creating or updating a customer, deal, or task writes an immutable activity record in the same Firestore batch as the record change. Activity records are owner-scoped and contain `ownerId`, `type`, `message`, `entityType`, `entityId`, `createdAt`, and `updatedAt`; `customerId` is optional. Publish the latest `firestore.rules` so the app can read and write this collection.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Customers, deals, and tasks can be deleted after confirmation. A customer cannot be deleted while it has linked deals or tasks; remove those records first to avoid leaving broken references. Delete events are also recorded in the activity feed, so publish the latest `firestore.rules` to allow the new activity types.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Checks
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `npm test`
+- `npm run lint`
+- `npm run build`
 
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+The UI tests mock Firebase data services and cover customer search/create/delete, deal display/create/delete, and task status/create/delete flows. They do not connect to the configured Firebase project.

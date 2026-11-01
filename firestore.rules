@@ -1,0 +1,229 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownsCustomer(data) {
+      return signedIn() && data.ownerId == request.auth.uid;
+    }
+
+    function validCustomer(data) {
+      return data.keys().hasAll([
+          'ownerId',
+          'firstName',
+          'lastName',
+          'email',
+          'status',
+          'value',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'ownerId',
+          'firstName',
+          'lastName',
+          'email',
+          'phone',
+          'company',
+          'status',
+          'notes',
+          'value',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.ownerId is string
+        && data.firstName is string
+        && data.firstName.size() > 0
+        && data.lastName is string
+        && data.lastName.size() > 0
+        && data.email is string
+        && data.email.size() > 0
+        && data.status in ['new', 'active', 'inactive', 'at-risk']
+        && data.value is number
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    match /customers/{customerId} {
+      allow read: if ownsCustomer(resource.data);
+      allow create: if ownsCustomer(request.resource.data)
+        && validCustomer(request.resource.data);
+      allow update: if ownsCustomer(resource.data)
+        && ownsCustomer(request.resource.data)
+        && validCustomer(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsCustomer(resource.data);
+    }
+
+    function ownsDeal(data) {
+      return signedIn() && data.ownerId == request.auth.uid;
+    }
+
+    function dealCustomerIsOwned(data) {
+      return exists(/databases/$(database)/documents/customers/$(data.customerId))
+        && get(/databases/$(database)/documents/customers/$(data.customerId)).data.ownerId == request.auth.uid;
+    }
+
+    function validDeal(data) {
+      return data.keys().hasAll([
+          'ownerId',
+          'customerId',
+          'title',
+          'stage',
+          'amount',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'ownerId',
+          'customerId',
+          'title',
+          'stage',
+          'amount',
+          'closeDate',
+          'notes',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.ownerId is string
+        && data.customerId is string
+        && data.title is string
+        && data.title.size() > 0
+        && data.stage in ['lead', 'qualified', 'proposal', 'negotiation', 'won', 'lost']
+        && data.amount is number
+        && data.amount >= 0
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && dealCustomerIsOwned(data);
+    }
+
+    match /deals/{dealId} {
+      allow read: if ownsDeal(resource.data);
+      allow create: if ownsDeal(request.resource.data)
+        && validDeal(request.resource.data);
+      allow update: if ownsDeal(resource.data)
+        && ownsDeal(request.resource.data)
+        && validDeal(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDeal(resource.data);
+    }
+
+    function ownsTask(data) {
+      return signedIn() && data.ownerId == request.auth.uid;
+    }
+
+    function taskCustomerIsOwned(data) {
+      return !('relatedCustomerId' in data)
+        || (
+          exists(/databases/$(database)/documents/customers/$(data.relatedCustomerId))
+          && get(/databases/$(database)/documents/customers/$(data.relatedCustomerId)).data.ownerId == request.auth.uid
+        );
+    }
+
+    function validTask(data) {
+      return data.keys().hasAll([
+          'ownerId',
+          'title',
+          'status',
+          'assigneeId',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'ownerId',
+          'title',
+          'status',
+          'assigneeId',
+          'relatedCustomerId',
+          'dueDate',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.ownerId is string
+        && data.title is string
+        && data.title.size() > 0
+        && data.status in ['todo', 'in-progress', 'done']
+        && data.assigneeId == request.auth.uid
+        && (!('relatedCustomerId' in data) || data.relatedCustomerId is string)
+        && (!('dueDate' in data) || data.dueDate is string)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && taskCustomerIsOwned(data);
+    }
+
+    match /tasks/{taskId} {
+      allow read: if ownsTask(resource.data);
+      allow create: if ownsTask(request.resource.data)
+        && validTask(request.resource.data);
+      allow update: if ownsTask(resource.data)
+        && ownsTask(request.resource.data)
+        && validTask(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsTask(resource.data);
+    }
+
+    function ownsActivity(data) {
+      return signedIn() && data.ownerId == request.auth.uid;
+    }
+
+    function activityCustomerIsOwned(data) {
+      return !('customerId' in data)
+        || (
+          exists(/databases/$(database)/documents/customers/$(data.customerId))
+          && get(/databases/$(database)/documents/customers/$(data.customerId)).data.ownerId == request.auth.uid
+        );
+    }
+
+    function validActivity(data) {
+      return data.keys().hasAll([
+          'ownerId',
+          'type',
+          'message',
+          'entityType',
+          'entityId',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'ownerId',
+          'type',
+          'message',
+          'entityType',
+          'entityId',
+          'customerId',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.ownerId is string
+        && data.type in [
+          'customer-created',
+          'customer-updated',
+          'customer-deleted',
+          'deal-created',
+          'deal-updated',
+          'deal-deleted',
+          'task-created',
+          'task-updated',
+          'task-completed',
+          'task-deleted',
+          'note-added'
+        ]
+        && data.message is string
+        && data.message.size() > 0
+        && data.entityType in ['customer', 'deal', 'task']
+        && data.entityId is string
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && activityCustomerIsOwned(data);
+    }
+
+    match /activities/{activityId} {
+      allow read: if ownsActivity(resource.data);
+      allow create: if ownsActivity(request.resource.data)
+        && validActivity(request.resource.data);
+      allow update, delete: if false;
+    }
+  }
+}
