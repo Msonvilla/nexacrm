@@ -1,9 +1,29 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuth } from "../auth/AuthContext";
 import { auth } from "../firebase";
+
+function emailSignUpErrorMessage(err: unknown) {
+  if (err instanceof FirebaseError) {
+    switch (err.code) {
+      case "auth/invalid-email":
+        return "Enter a valid email address.";
+      case "auth/email-already-in-use":
+        return "An account already exists with this email. Log in instead.";
+      case "auth/weak-password":
+        return "Choose a stronger password with at least 6 characters.";
+      case "auth/too-many-requests":
+        return "Too many attempts. Wait a moment and try again.";
+      case "auth/network-request-failed":
+        return "Network problem. Check your connection.";
+      case "auth/operation-not-allowed":
+        return "Email and password sign-up is not enabled for this Firebase project.";
+    }
+  }
+  return "Could not create your account. Please try again.";
+}
 
 function friendlyMessage(err: unknown) {
   if (err instanceof FirebaseError) {
@@ -32,8 +52,30 @@ function friendlyMessage(err: unknown) {
 export default function Register() {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  async function handleEmailSignUp(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
+      navigate("/dashboard");
+    } catch (err) {
+      setError(emailSignUpErrorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleGoogleSignUp() {
     setError("");
@@ -58,6 +100,54 @@ export default function Register() {
   return (
     <div className="mx-auto mt-10 max-w-sm p-4">
       <h1 className="mb-4 text-2xl font-bold">Create account</h1>
+      <form onSubmit={handleEmailSignUp} className="flex flex-col gap-3">
+        <label className="text-sm font-medium text-slate-700" htmlFor="register-email">Email</label>
+        <input
+          id="register-email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          autoComplete="email"
+          required
+          className="rounded border p-2"
+        />
+        <label className="text-sm font-medium text-slate-700" htmlFor="register-password">Password</label>
+        <input
+          id="register-password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          autoComplete="new-password"
+          minLength={6}
+          required
+          className="rounded border p-2"
+        />
+        <label className="text-sm font-medium text-slate-700" htmlFor="register-confirm-password">
+          Confirm password
+        </label>
+        <input
+          id="register-confirm-password"
+          type="password"
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          autoComplete="new-password"
+          minLength={6}
+          required
+          className="rounded border p-2"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          {loading ? "Creating account..." : "Create account"}
+        </button>
+      </form>
+      <div className="my-4 flex items-center gap-3 text-sm text-slate-500">
+        <span className="h-px flex-1 bg-slate-200" />
+        <span>or</span>
+        <span className="h-px flex-1 bg-slate-200" />
+      </div>
       <button
         type="button"
         onClick={handleGoogleSignUp}
@@ -65,7 +155,7 @@ export default function Register() {
         className="w-full rounded border border-slate-300 p-2 font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
       >
         {loading ? "Creating account..." : "Sign up with Google"}
-        </button>
+      </button>
       {error && <p role="alert" className="mt-3 text-red-600">{error}</p>}
       <p className="mt-4 text-sm text-slate-600">
         Already have an account? <Link to="/login" className="text-blue-700 hover:underline">Log in</Link>
