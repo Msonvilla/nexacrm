@@ -4,6 +4,108 @@
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
+.auth-background,
+.page-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.auth-background--login {
+  background-color: #07162f;
+  background-image: url("/backgrounds/login.svg");
+}
+
+.auth-background--register {
+  background-color: #0b2d42;
+  background-image: url("/backgrounds/register.svg");
+}
+
+.auth-background--general {
+  background-color: #10233d;
+  background-image: url("/backgrounds/general.svg");
+}
+
+.auth-card {
+  background-color: rgb(255 255 255 / 96%);
+  box-shadow: 0 24px 64px rgb(3 14 35 / 24%);
+  backdrop-filter: blur(10px);
+}
+
+.page-background--dashboard {
+  background-color: #eaf3fb;
+  background-image: url("/backgrounds/dashboard.svg");
+}
+
+.page-background--dashboard > .space-y-6 {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 1rem;
+  background-color: rgb(245 250 255 / 94%);
+  box-shadow: 0 16px 40px rgb(38 75 110 / 10%);
+}
+
+.page-background--dashboard .text-gray-900 {
+  color: #1e344b;
+}
+
+.page-background--dashboard .text-gray-700 {
+  color: #43566b;
+}
+
+.page-background--dashboard .text-gray-600 {
+  color: #52657a;
+}
+
+.page-background--dashboard .text-blue-600 {
+  color: #2368a1;
+}
+
+.page-background--customers {
+  background-color: #edf5fc;
+  background-image: url("/backgrounds/customers.svg");
+}
+
+.page-background--deals {
+  background-color: #edf5fc;
+  background-image: url("/backgrounds/deals.svg");
+}
+
+.page-background--tasks {
+  background-color: #edf5fc;
+  background-image: url("/backgrounds/tasks.svg");
+}
+
+.page-background--general {
+  background-color: #edf5fc;
+  background-image: url("/backgrounds/general.svg");
+}
+
+.crm-sidebar {
+  background: linear-gradient(160deg, #e5f2fc 0%, #dcecf9 100%);
+}
+
+.dashboard-chart {
+  height: clamp(18rem, 34vw, 22rem);
+}
+
+@media (max-width: 767px) {
+  .page-background--dashboard > .space-y-6 {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+  }
+
+  .dashboard-chart {
+    height: 20rem;
+  }
+
+  .crm-navigation {
+    scrollbar-width: thin;
+    scrollbar-color: #94b9d8 transparent;
+  }
+}
+
 .launch-glow {
   position: absolute;
   width: 24rem;

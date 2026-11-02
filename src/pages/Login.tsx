@@ -97,8 +97,8 @@ export default function Login() {
   }
 
   return (
-    <div className="font-inter flex min-h-screen items-center justify-center bg-blue-50 px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+    <div className="auth-background auth-background--login font-inter flex min-h-screen items-center justify-center px-4 py-10">
+      <section className="auth-card w-full max-w-md rounded-2xl p-8 shadow-lg">
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Log in</h1>
       {verificationNotice && (
         <p role="status" className="mb-3 rounded border border-slate-200 bg-slate-50 p-3 text-sm text-gray-600">

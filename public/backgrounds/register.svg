@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1E3D"/>
+      <stop offset=".52" stop-color="#0D5261"/>
+      <stop offset="1" stop-color="#087B78"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(380 490 -610 472 1442 324)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#71F0D1" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#71F0D1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shape" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#CCFFF5" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#85D4FF" stop-opacity=".025"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#glow)" d="M0 0h1920v1080H0z"/>
+  <g stroke="#BAFFF1" stroke-opacity=".16">
+    <circle cx="166" cy="180" r="112"/><circle cx="166" cy="180" r="162"/>
+    <circle cx="1724" cy="856" r="180"/><circle cx="1724" cy="856" r="245"/>
+    <path d="m1334 152 142-82 142 82v164l-142 82-142-82z"/>
+    <path d="m1334 152 142 82 142-82m-142 82v164"/>
+    <path d="m258 838 106-61 106 61v122l-106 61-106-61z"/>
+  </g>
+  <g fill="url(#shape)" stroke="#D0FFF4" stroke-opacity=".22">
+    <path d="m103 468 86-50 86 50v100l-86 50-86-50z"/>
+    <path d="m1629 210 132-76 132 76v152l-132 76-132-76z"/>
+    <path d="m1451 756 73-42 73 42v84l-73 42-73-42z"/>
+    <path d="m471 117 64-37 64 37v74l-64 37-64-37z"/>
+    <circle cx="601" cy="827" r="62"/><circle cx="1287" cy="504" r="40"/>
+    <circle cx="904" cy="184" r="22"/><circle cx="1044" cy="893" r="30"/>
+  </g>
+  <g fill="#D6FFF7" opacity=".36">
+    <circle cx="409" cy="286" r="3"/><circle cx="558" cy="355" r="4"/><circle cx="1268" cy="188" r="3"/>
+    <circle cx="1505" cy="534" r="4"/><circle cx="392" cy="702" r="3"/><circle cx="1203" cy="761" r="4"/>
+  </g>
+</svg>

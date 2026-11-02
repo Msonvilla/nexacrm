@@ -16,6 +16,7 @@ import { listCustomers } from "../services/customerService";
 import { listDeals } from "../services/dealService";
 import { listTasks } from "../services/taskService";
 import type { ActivityItem, Customer, Deal, DealStage, TaskRecord } from "../types";
+import { getDealStageTrend, type DealTrend } from "./dealStageTrend";
 
 type DashboardData = {
   customers: Customer[];
@@ -24,14 +25,20 @@ type DashboardData = {
   activities: ActivityItem[];
 }
 
-const dealStages: { stage: DealStage; label: string; color: string }[] = [
-  { stage: "lead", label: "Lead", color: "#64748b" },
-  { stage: "qualified", label: "Qualified", color: "#475569" },
-  { stage: "proposal", label: "Proposal", color: "#334155" },
-  { stage: "negotiation", label: "Negotiation", color: "#1e293b" },
-  { stage: "won", label: "Won", color: "#16a34a" },
-  { stage: "lost", label: "Lost", color: "#94a3b8" },
+const dealStages: { stage: DealStage; label: string }[] = [
+  { stage: "lead", label: "Lead" },
+  { stage: "qualified", label: "Qualified" },
+  { stage: "proposal", label: "Proposal" },
+  { stage: "negotiation", label: "Negotiation" },
+  { stage: "won", label: "Won" },
+  { stage: "lost", label: "Lost" },
 ];
+
+const dealTrendColors: Record<DealTrend, string> = {
+  increase: "#047857",
+  decrease: "#be123c",
+  steady: "#1d4ed8",
+};
 
 function formatCompactCurrency(value: number) {
   return `$${new Intl.NumberFormat(undefined, {
@@ -107,13 +114,20 @@ export default function DashboardPage() {
   const wonValue = data.deals
     .filter((deal) => deal.stage === "won")
     .reduce((sum, deal) => sum + deal.amount, 0);
-  const dealStageValues = dealStages.map(({ stage, label, color }) => ({
+  const dealStageTotals = dealStages.map(({ stage, label }) => ({
     stage: label,
     value: data.deals
       .filter((deal) => deal.stage === stage)
       .reduce((sum, deal) => sum + deal.amount, 0),
-    color,
   }));
+  const dealStageValues = dealStageTotals.map((entry, index) => {
+    const previousValue = index > 0 ? dealStageTotals[index - 1].value : entry.value;
+
+    return {
+      ...entry,
+      trend: getDealStageTrend(entry.value, previousValue),
+    };
+  });
 
   const summaryCards = [
     { label: "Customers", value: String(data.customers.length), detail: "Your customer records" },
@@ -139,8 +153,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-        <p className="mt-2 text-sm text-gray-600">A live snapshot of your sales pipeline and customer work.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Dashboard</h1>
+        <p className="mt-2 text-sm text-slate-600">A live snapshot of your sales pipeline and customer work.</p>
       </div>
 
       {error && (
@@ -165,50 +179,55 @@ export default function DashboardPage() {
         </p>
       ) : (
         <>
-          <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="mb-5">
-              <h2 className="text-lg font-semibold text-gray-900">Deal value by stage</h2>
-              <p className="mt-1 text-sm text-gray-600">A breakdown of your sales pipeline and closed deals.</p>
+          <section className="rounded-xl border border-sky-100 bg-white p-4 shadow-sm sm:p-5">
+            <div className="mb-4 sm:mb-5">
+              <h2 className="text-lg font-semibold text-slate-900">Deal value by stage</h2>
+              <p className="mt-1 text-sm text-slate-600">A breakdown of your sales pipeline and closed deals.</p>
             </div>
             {data.deals.length === 0 && (
-              <p className="mb-4 rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-gray-600">
+              <p className="mb-4 rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-slate-600">
                 No deals yet. Add a deal to see values in the chart.
               </p>
             )}
-            <div className="h-72 min-w-0 w-full" role="img" aria-label="Deal value by stage chart">
+            <div className="dashboard-chart h-72 min-w-0 w-full" role="img" aria-label="Deal value by stage chart">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={dealStageValues}
                   layout="vertical"
-                  margin={{ top: 8, right: 12, bottom: 4, left: 8 }}
+                  margin={{ top: 8, right: 8, bottom: 4, left: 0 }}
                 >
-                  <CartesianGrid stroke="#e2e8f0" horizontal={false} />
+                  <CartesianGrid stroke="#d7e4ef" horizontal={false} />
                   <XAxis
                     type="number"
                     tickFormatter={(value: number) => formatCompactCurrency(value)}
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#64748b", fontSize: 12 }}
+                    tick={{ fill: "#52657a", fontSize: 12 }}
                   />
                   <YAxis
                     type="category"
                     dataKey="stage"
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#64748b", fontSize: 12 }}
-                    width={92}
+                    tick={{ fill: "#43566b", fontSize: 12 }}
+                    width={84}
                   />
                   <Tooltip
                     formatter={(value) => [`$${Number(value).toLocaleString()}`, "Deal value"]}
-                    cursor={{ fill: "#f1f5f9" }}
+                    cursor={{ fill: "#eff6fb" }}
                   />
                   <Bar dataKey="value" name="Deal value" radius={[0, 4, 4, 0]}>
                     {dealStageValues.map((entry) => (
-                      <Cell key={entry.stage} fill={entry.color} />
+                      <Cell key={entry.stage} fill={dealTrendColors[entry.trend]} />
                     ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
+            </div>
+            <div aria-label="Chart color key" className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-slate-600">
+              <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-emerald-700" />Higher than previous stage</span>
+              <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-rose-700" />Lower than previous stage</span>
+              <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-blue-700" />No change / first stage</span>
             </div>
           </section>
 

@@ -51,8 +51,8 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="font-inter flex min-h-screen items-center justify-center bg-blue-50 px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+    <div className="auth-background auth-background--general font-inter flex min-h-screen items-center justify-center px-4 py-10">
+      <section className="auth-card w-full max-w-md rounded-2xl p-8 shadow-lg">
       <h1 className="mb-2 text-2xl font-bold text-gray-900">Reset your password</h1>
       <p className="mb-5 text-sm text-gray-600">We’ll email you a link to choose a new password.</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">

@@ -98,8 +98,8 @@ export default function Register() {
   }
 
   return (
-    <div className="font-inter flex min-h-screen items-center justify-center bg-blue-50 px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+    <div className="auth-background auth-background--register font-inter flex min-h-screen items-center justify-center px-4 py-10">
+      <section className="auth-card w-full max-w-md rounded-2xl p-8 shadow-lg">
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Create account</h1>
       <form onSubmit={handleEmailSignUp} className="flex flex-col gap-3">
         <label className="text-sm font-medium text-gray-700" htmlFor="register-email">Email</label>

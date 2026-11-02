@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06142C"/>
+      <stop offset=".52" stop-color="#102B52"/>
+      <stop offset="1" stop-color="#071A34"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 540 -820 0 960 540)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4B78" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#102B52" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#65D5FF" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#83BFFF" stop-opacity=".42"/>
+    </linearGradient>
+    <filter id="blur" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#glow)" d="M0 0h1920v1080H0z"/>
+  <g stroke="url(#line)" stroke-width="1.5">
+    <path d="m0 147 130 82 156-37 124 102 161-49M0 412l158-79 111 92 141-39 124 77M0 777l133-85 133 74 134-108 168 75"/>
+    <path d="m1920 120-145 76-128-53-145 112-170-51M1920 396l-164-72-126 103-155-53-147 111M1920 762l-139-69-153 85-111-87-180 88"/>
+    <path d="m285 192 63 130m-190 11 109 87m-134 277 133 69m44-235 192 5m110-273-55 125m112 275-80 126"/>
+    <path d="m1775 196-72 139m-57 167 119 45m-139 163 85 155m-260-396 153-9"/>
+  </g>
+  <g fill="#9DE6FF">
+    <circle cx="130" cy="229" r="3"/><circle cx="286" cy="192" r="4"/><circle cx="410" cy="294" r="3"/>
+    <circle cx="571" cy="245" r="4"/><circle cx="158" cy="333" r="4"/><circle cx="269" cy="425" r="3"/>
+    <circle cx="410" cy="386" r="4"/><circle cx="544" cy="463" r="3"/><circle cx="133" cy="692" r="4"/>
+    <circle cx="266" cy="766" r="3"/><circle cx="400" cy="658" r="4"/><circle cx="568" cy="733" r="3"/>
+    <circle cx="1775" cy="196" r="4"/><circle cx="1647" cy="143" r="3"/><circle cx="1502" cy="255" r="4"/>
+    <circle cx="1732" cy="424" r="3"/><circle cx="1577" cy="371" r="4"/><circle cx="1422" cy="482" r="3"/>
+    <circle cx="1781" cy="693" r="4"/><circle cx="1628" cy="778" r="3"/><circle cx="1517" cy="691" r="4"/>
+    <circle cx="1337" cy="779" r="3"/>
+  </g>
+  <g fill="#68D7FF" opacity=".34" filter="url(#blur)">
+    <circle cx="286" cy="192" r="10"/><circle cx="410" cy="386" r="10"/><circle cx="400" cy="658" r="10"/>
+    <circle cx="1502" cy="255" r="10"/><circle cx="1577" cy="371" r="10"/><circle cx="1517" cy="691" r="10"/>
+  </g>
+  <path fill="#06142C" fill-opacity=".08" d="M650 0h620v1080H650z"/>
+</svg>

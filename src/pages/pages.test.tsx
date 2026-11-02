@@ -7,6 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CustomerFormPage from "./CustomerFormPage";
 import CustomersPage from "./CustomersPage";
 import DashboardPage from "./DashboardPage";
+import { getDealStageTrend } from "./dealStageTrend";
 import DealFormPage from "./DealFormPage";
 import DealsPage from "./DealsPage";
 import TaskFormPage from "./TaskFormPage";
@@ -140,8 +141,16 @@ describe("CRM list pages", () => {
   it("renders the deal chart on the dashboard", async () => {
     renderPage(<DashboardPage />);
 
-    expect(await screen.findByRole("img", { name: "Deal value by stage chart" })).toBeInTheDocument();
+    const chart = await screen.findByRole("img", { name: "Deal value by stage chart" });
+    expect(chart).toBeInTheDocument();
     expect(screen.getByText("Deal value by stage")).toBeInTheDocument();
+    expect(screen.getByText("Higher than previous stage")).toBeInTheDocument();
+  });
+
+  it("colors deal stages according to whether their value rises or falls", () => {
+    expect(getDealStageTrend(300, 200)).toBe("increase");
+    expect(getDealStageTrend(100, 200)).toBe("decrease");
+    expect(getDealStageTrend(200, 200)).toBe("steady");
   });
 
   it("keeps the deal chart visible when there are no deals", async () => {

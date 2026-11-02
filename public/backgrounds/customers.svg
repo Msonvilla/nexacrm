@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <pattern id="people" width="320" height="260" patternUnits="userSpaceOnUse">
+      <g stroke="#8293A5" stroke-opacity=".105" stroke-width="2">
+        <circle cx="55" cy="57" r="16"/><path d="M25 108c2-20 13-31 30-31s28 11 30 31m-60 0h60"/>
+        <path d="M183 38h86a10 10 0 0 1 10 10v47a10 10 0 0 1-10 10h-43l-19 17v-17h-24a10 10 0 0 1-10-10V48a10 10 0 0 1 10-10Z"/>
+        <path d="M197 61h57m-57 20h40"/>
+        <rect x="37" y="156" width="97" height="66" rx="8"/>
+        <circle cx="62" cy="180" r="10"/><path d="M47 207c1-10 7-16 15-16s14 6 15 16m12-27h28m-28 15h28"/>
+        <circle cx="218" cy="183" r="4" fill="#8293A5" fill-opacity=".105"/>
+        <circle cx="239" cy="183" r="4" fill="#8293A5" fill-opacity=".105"/>
+        <circle cx="260" cy="183" r="4" fill="#8293A5" fill-opacity=".105"/>
+      </g>
+    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F9FB"/><stop offset="1" stop-color="#EEF2F6"/>
+    </linearGradient>
+    <radialGradient id="wash" cx="0" cy="0" r="1" gradientTransform="matrix(720 520 -710 984 960 450)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9F1F8" stop-opacity=".7"/><stop offset="1" stop-color="#F4F7FA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#wash)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#people)" d="M0 0h1920v1080H0z"/>
+</svg>

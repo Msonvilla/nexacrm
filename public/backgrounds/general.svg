@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3F6FB"/><stop offset=".5" stop-color="#F2F4FA"/><stop offset="1" stop-color="#F5F2FB"/>
+    </linearGradient>
+    <radialGradient id="blue" cx="0" cy="0" r="1" gradientTransform="matrix(680 380 -545 975 180 140)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#75A9E5" stop-opacity=".17"/><stop offset="1" stop-color="#75A9E5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="teal" cx="0" cy="0" r="1" gradientTransform="matrix(680 395 -565 973 1720 865)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58C8B2" stop-opacity=".17"/><stop offset="1" stop-color="#58C8B2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5E8ED5" stop-opacity=".08"/><stop offset=".55" stop-color="#43B9B2" stop-opacity=".05"/><stop offset="1" stop-color="#8D78C9" stop-opacity=".08"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#blue)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#teal)" d="M0 0h1920v1080H0z"/>
+  <path fill="url(#wave)" d="M0 0c260 155 422 124 690 26s413-91 624 23c242 131 385 131 606 32v283c-267 112-411 56-687-50-224-87-362-80-600 10C382 419 207 421 0 333V0Zm0 1080c267-135 434-120 671-33 244 90 403 91 649-14 239-101 397-130 600-42v-231c-235-79-385-57-618 37-249 100-404 117-648 22-241-93-429-119-654-6v267Z"/>
+  <g fill="none" stroke-width="2">
+    <path d="m1490 240 47-27 47 27v54l-47 27-47-27zm94 0 47-27 47 27v54l-47 27-47-27zm-47 81 47-27 47 27v54l-47 27-47-27z" stroke="#7771B5" stroke-opacity=".12"/>
+    <path d="m224 654 54-31 54 31v62l-54 31-54-31zm108 0 54-31 54 31v62l-54 31-54-31z" stroke="#4E9EAA" stroke-opacity=".13"/>
+  </g>
+  <g fill="#6988C5" fill-opacity=".22">
+    <circle cx="1070" cy="233" r="4"/><circle cx="1124" cy="233" r="4"/><circle cx="1178" cy="233" r="4"/>
+    <circle cx="1105" cy="287" r="4"/><circle cx="1159" cy="287" r="4"/><circle cx="1213" cy="287" r="4"/>
+    <circle cx="1427" cy="809" r="4"/><circle cx="1481" cy="809" r="4"/><circle cx="1535" cy="809" r="4"/>
+    <circle cx="1462" cy="863" r="4"/><circle cx="1516" cy="863" r="4"/><circle cx="1570" cy="863" r="4"/>
+    <circle cx="590" cy="485" r="3"/><circle cx="648" cy="522" r="3"/><circle cx="701" cy="473" r="3"/>
+    <circle cx="125" cy="452" r="4"/><circle cx="1830" cy="485" r="4"/>
+  </g>
+</svg>
