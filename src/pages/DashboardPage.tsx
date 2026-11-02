@@ -1,17 +1,43 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { useAuth } from "../auth/AuthContext";
 import { listRecentActivities } from "../services/activityService";
 import { listCustomers } from "../services/customerService";
 import { listDeals } from "../services/dealService";
 import { listTasks } from "../services/taskService";
-import type { ActivityItem, Customer, Deal, TaskRecord } from "../types";
+import type { ActivityItem, Customer, Deal, DealStage, TaskRecord } from "../types";
 
 type DashboardData = {
   customers: Customer[];
   deals: Deal[];
   tasks: TaskRecord[];
   activities: ActivityItem[];
+}
+
+const dealStages: { stage: DealStage; label: string; color: string }[] = [
+  { stage: "lead", label: "Lead", color: "#0ea5e9" },
+  { stage: "qualified", label: "Qualified", color: "#0284c7" },
+  { stage: "proposal", label: "Proposal", color: "#0369a1" },
+  { stage: "negotiation", label: "Negotiation", color: "#075985" },
+  { stage: "won", label: "Won", color: "#16a34a" },
+  { stage: "lost", label: "Lost", color: "#94a3b8" },
+];
+
+function formatCompactCurrency(value: number) {
+  return `$${new Intl.NumberFormat(undefined, {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value)}`;
 }
 
 export default function DashboardPage() {
@@ -81,6 +107,13 @@ export default function DashboardPage() {
   const wonValue = data.deals
     .filter((deal) => deal.stage === "won")
     .reduce((sum, deal) => sum + deal.amount, 0);
+  const dealStageValues = dealStages.map(({ stage, label, color }) => ({
+    stage: label,
+    value: data.deals
+      .filter((deal) => deal.stage === stage)
+      .reduce((sum, deal) => sum + deal.amount, 0),
+    color,
+  }));
 
   const summaryCards = [
     { label: "Customers", value: String(data.customers.length), detail: "Your customer records" },
@@ -132,6 +165,53 @@ export default function DashboardPage() {
         </p>
       ) : (
         <>
+          <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="mb-5">
+              <h2 className="text-lg font-semibold text-slate-900">Deal value by stage</h2>
+              <p className="mt-1 text-sm text-slate-500">A breakdown of your sales pipeline and closed deals.</p>
+            </div>
+            {data.deals.length === 0 && (
+              <p className="mb-4 rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">
+                No deals yet. Add a deal to see values in the chart.
+              </p>
+            )}
+            <div className="h-72 min-w-0 w-full" role="img" aria-label="Deal value by stage chart">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={dealStageValues}
+                  layout="vertical"
+                  margin={{ top: 8, right: 12, bottom: 4, left: 8 }}
+                >
+                  <CartesianGrid stroke="#e2e8f0" horizontal={false} />
+                  <XAxis
+                    type="number"
+                    tickFormatter={(value: number) => formatCompactCurrency(value)}
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fill: "#64748b", fontSize: 12 }}
+                  />
+                  <YAxis
+                    type="category"
+                    dataKey="stage"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fill: "#64748b", fontSize: 12 }}
+                    width={92}
+                  />
+                  <Tooltip
+                    formatter={(value) => [`$${Number(value).toLocaleString()}`, "Deal value"]}
+                    cursor={{ fill: "#f1f5f9" }}
+                  />
+                  <Bar dataKey="value" name="Deal value" radius={[0, 4, 4, 0]}>
+                    {dealStageValues.map((entry) => (
+                      <Cell key={entry.stage} fill={entry.color} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+
           <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
             <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">

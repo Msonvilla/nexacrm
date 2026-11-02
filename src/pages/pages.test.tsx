@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CustomerFormPage from "./CustomerFormPage";
 import CustomersPage from "./CustomersPage";
+import DashboardPage from "./DashboardPage";
 import DealFormPage from "./DealFormPage";
 import DealsPage from "./DealsPage";
 import TaskFormPage from "./TaskFormPage";
@@ -26,6 +27,10 @@ vi.mock("../services/customerService", () => ({
   getCustomer: vi.fn(),
   listCustomers: vi.fn(),
   updateCustomer: vi.fn(),
+}));
+
+vi.mock("../services/activityService", () => ({
+  listRecentActivities: vi.fn(),
 }));
 
 vi.mock("../services/dealService", () => ({
@@ -51,6 +56,7 @@ import {
   listCustomers,
   updateCustomer,
 } from "../services/customerService";
+import { listRecentActivities } from "../services/activityService";
 import { createDeal, deleteDeal, getDeal, listDeals, updateDeal } from "../services/dealService";
 import { createTask, deleteTask, getTask, listTasks, updateTask } from "../services/taskService";
 
@@ -106,6 +112,7 @@ function renderForm(initialPath: string, path: string, page: ReactNode, successP
 }
 
 beforeEach(() => {
+  vi.mocked(listRecentActivities).mockResolvedValue([]);
   vi.mocked(listCustomers).mockResolvedValue([customer]);
   vi.mocked(listDeals).mockResolvedValue([deal]);
   vi.mocked(listTasks).mockResolvedValue([task]);
@@ -130,6 +137,21 @@ afterEach(() => {
 });
 
 describe("CRM list pages", () => {
+  it("renders the deal chart on the dashboard", async () => {
+    renderPage(<DashboardPage />);
+
+    expect(await screen.findByRole("img", { name: "Deal value by stage chart" })).toBeInTheDocument();
+    expect(screen.getByText("Deal value by stage")).toBeInTheDocument();
+  });
+
+  it("keeps the deal chart visible when there are no deals", async () => {
+    vi.mocked(listDeals).mockResolvedValue([]);
+    renderPage(<DashboardPage />);
+
+    expect(await screen.findByRole("img", { name: "Deal value by stage chart" })).toBeInTheDocument();
+    expect(screen.getByText("No deals yet. Add a deal to see values in the chart.")).toBeInTheDocument();
+  });
+
   it("loads and filters customers by name", async () => {
     const user = userEvent.setup();
     renderPage(<CustomersPage />);
