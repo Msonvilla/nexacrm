@@ -106,6 +106,34 @@
   }
 }
 
+button,
+a[href*="/edit"],
+a[class~="bg-blue-600"],
+a[class~="rounded-lg"][class~="px-4"][class~="py-2.5"] {
+  border-color: #1e5bff;
+  background-color: #1e5bff;
+  color: #fff;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+a[href*="/edit"] {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+button:hover:not(:disabled),
+a[href*="/edit"]:hover,
+a[class~="bg-blue-600"]:hover,
+a[class~="rounded-lg"][class~="px-4"][class~="py-2.5"]:hover {
+  border-color: #1447e6;
+  background-color: #1447e6;
+  color: #fff;
+}
+
 .launch-glow {
   position: absolute;
   width: 24rem;
