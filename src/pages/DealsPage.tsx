@@ -119,7 +119,7 @@ export default function DealsPage() {
         </div>
         <Link
           to="/deals/new"
-          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+          className="crm-button min-h-11 px-4 py-2.5 text-sm sm:min-h-10"
         >
           New deal
         </Link>
@@ -176,7 +176,7 @@ export default function DealsPage() {
                       <div className="flex shrink-0 items-center gap-3">
                         <Link
                           to={`/deals/${deal.id}/edit`}
-                          className="text-sm font-medium text-blue-600 hover:text-blue-500"
+                          className="crm-button min-h-9 px-3 py-1.5 text-sm"
                         >
                           Edit
                         </Link>
@@ -184,7 +184,7 @@ export default function DealsPage() {
                           type="button"
                           onClick={() => void handleDelete(deal)}
                           disabled={deletingId === deal.id}
-                          className="text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
+                          className="crm-delete text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
                         >
                           {deletingId === deal.id ? "Deleting..." : "Delete"}
                         </button>

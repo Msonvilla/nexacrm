@@ -133,7 +133,7 @@ export default function TasksPage() {
         </div>
         <Link
           to="/tasks/new"
-          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+          className="crm-button min-h-11 px-4 py-2.5 text-sm sm:min-h-10"
         >
           New task
         </Link>
@@ -195,14 +195,14 @@ export default function TasksPage() {
                       <option key={status.value} value={status.value}>{status.label}</option>
                     ))}
                   </select>
-                  <Link to={`/tasks/${task.id}/edit`} className="text-sm font-medium text-blue-600 hover:text-blue-500">
+                  <Link to={`/tasks/${task.id}/edit`} className="crm-button min-h-9 px-3 py-1.5 text-sm">
                     Edit
                   </Link>
                   <button
                     type="button"
                     onClick={() => void handleDelete(task)}
                     disabled={deletingId === task.id || updatingId === task.id}
-                    className="text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
+                    className="crm-delete text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
                   >
                     {deletingId === task.id ? "Deleting..." : "Delete"}
                   </button>

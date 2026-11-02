@@ -108,7 +108,7 @@ export default function CustomersPage() {
 
         <Link
           to="/customers/new"
-          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+          className="crm-button min-h-11 px-4 py-2.5 text-sm sm:min-h-10"
         >
           New customer
         </Link>
@@ -171,14 +171,14 @@ export default function CustomersPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <Link to={`/customers/${customer.id}/edit`} className="text-sm font-medium text-blue-600 hover:text-blue-500">
+                      <Link to={`/customers/${customer.id}/edit`} className="crm-button min-h-9 px-3 py-1.5 text-sm">
                         Edit
                       </Link>
                       <button
                         type="button"
                         onClick={() => void handleDelete(customer)}
                         disabled={deletingId === customer.id}
-                        className="text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
+                        className="crm-delete text-sm font-medium text-red-600 hover:text-red-500 disabled:opacity-50"
                       >
                         {deletingId === customer.id ? "Deleting..." : "Delete"}
                       </button>

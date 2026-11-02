@@ -24,7 +24,7 @@ export default function AppShell() {
           : "general";
 
   return (
-    <div className="font-inter min-h-screen bg-sky-50 text-slate-800">
+    <div className="font-inter min-h-screen bg-gray-100 text-slate-800">
       <div className="mx-auto flex min-h-screen max-w-screen-2xl flex-col md:flex-row">
         <aside className="crm-sidebar w-full shrink-0 border-b border-sky-200 p-4 text-slate-800 md:sticky md:top-0 md:h-screen md:w-60 md:border-b-0 md:border-r md:p-5 lg:w-64">
           <div className="mb-4 md:mb-10">
@@ -37,13 +37,7 @@ export default function AppShell() {
               <NavLink
                 key={item.to}
                 to={item.to}
-                className={({ isActive }) =>
-                  `flex min-h-11 shrink-0 items-center rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 md:min-h-10 md:px-3 ${
-                    isActive
-                      ? "bg-sky-700 text-white shadow-sm"
-                      : "text-slate-700 hover:bg-white/80 hover:text-slate-950"
-                  }`
-                }
+                className="crm-button min-h-11 shrink-0 px-4 py-2 text-sm md:min-h-10 md:w-full md:px-3"
               >
                 {item.label}
               </NavLink>
@@ -66,7 +60,7 @@ export default function AppShell() {
             <button
               type="button"
               onClick={() => signOut(auth)}
-              className="min-h-11 rounded-lg bg-sky-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 sm:min-h-10"
+              className="min-h-11 rounded-lg px-4 py-2 text-sm font-semibold transition-colors sm:min-h-10"
             >
               Log out
             </button>

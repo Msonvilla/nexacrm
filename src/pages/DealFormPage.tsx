@@ -273,14 +273,14 @@ export default function DealFormPage() {
             <div className="mt-6 flex justify-end gap-3">
               <Link
                 to="/deals"
-                className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-slate-50"
+                className="crm-button min-h-11 px-4 py-2.5 text-sm sm:min-h-10"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={saving || customers.length === 0 || Boolean(id && !existingDeal)}
-                className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="min-h-11 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-10"
               >
                 {saving ? "Saving..." : existingDeal ? "Save changes" : "Create deal"}
               </button>
