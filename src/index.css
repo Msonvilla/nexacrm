@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.font-inter {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
 .launch-glow {
   position: absolute;
   width: 24rem;

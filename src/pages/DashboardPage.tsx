@@ -25,10 +25,10 @@ type DashboardData = {
 }
 
 const dealStages: { stage: DealStage; label: string; color: string }[] = [
-  { stage: "lead", label: "Lead", color: "#0ea5e9" },
-  { stage: "qualified", label: "Qualified", color: "#0284c7" },
-  { stage: "proposal", label: "Proposal", color: "#0369a1" },
-  { stage: "negotiation", label: "Negotiation", color: "#075985" },
+  { stage: "lead", label: "Lead", color: "#64748b" },
+  { stage: "qualified", label: "Qualified", color: "#475569" },
+  { stage: "proposal", label: "Proposal", color: "#334155" },
+  { stage: "negotiation", label: "Negotiation", color: "#1e293b" },
   { stage: "won", label: "Won", color: "#16a34a" },
   { stage: "lost", label: "Lost", color: "#94a3b8" },
 ];
@@ -139,8 +139,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h1>
-        <p className="mt-2 text-sm text-slate-600">A live snapshot of your sales pipeline and customer work.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+        <p className="mt-2 text-sm text-gray-600">A live snapshot of your sales pipeline and customer work.</p>
       </div>
 
       {error && (
@@ -152,26 +152,26 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {summaryCards.map((card) => (
           <div key={card.label} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-500">{card.label}</p>
-            <p className="mt-3 text-3xl font-bold text-slate-900">{loading ? "—" : card.value}</p>
-            <p className="mt-2 text-xs text-slate-500">{card.detail}</p>
+            <p className="text-sm text-gray-600">{card.label}</p>
+            <p className="mt-3 text-3xl font-bold text-gray-900">{loading ? "—" : card.value}</p>
+            <p className="mt-2 text-xs text-gray-600">{card.detail}</p>
           </div>
         ))}
       </div>
 
       {loading ? (
-        <p className="rounded-xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
+        <p className="rounded-xl border border-slate-200 bg-white p-8 text-center text-sm text-gray-600">
           Loading dashboard...
         </p>
       ) : (
         <>
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="mb-5">
-              <h2 className="text-lg font-semibold text-slate-900">Deal value by stage</h2>
-              <p className="mt-1 text-sm text-slate-500">A breakdown of your sales pipeline and closed deals.</p>
+              <h2 className="text-lg font-semibold text-gray-900">Deal value by stage</h2>
+              <p className="mt-1 text-sm text-gray-600">A breakdown of your sales pipeline and closed deals.</p>
             </div>
             {data.deals.length === 0 && (
-              <p className="mb-4 rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">
+              <p className="mb-4 rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-gray-600">
                 No deals yet. Add a deal to see values in the chart.
               </p>
             )}
@@ -215,26 +215,26 @@ export default function DashboardPage() {
           <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
             <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-slate-900">Recently updated customers</h2>
-                <Link to="/customers" className="text-sm font-medium text-sky-600 hover:text-sky-500">
+                <h2 className="text-lg font-semibold text-gray-900">Recently updated customers</h2>
+                <Link to="/customers" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                   View all
                 </Link>
               </div>
               {recentCustomers.length === 0 ? (
-                <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
-                  No customers yet. <Link to="/customers/new" className="font-medium text-sky-600">Add a customer</Link>
+                <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-gray-600">
+                  No customers yet. <Link to="/customers/new" className="font-medium text-blue-600">Add a customer</Link>
                 </p>
               ) : (
                 <div className="space-y-3">
                   {recentCustomers.map((customer) => (
                     <div key={customer.id} className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 p-3">
                       <div className="min-w-0">
-                        <p className="truncate font-medium text-slate-900">
+                        <p className="truncate font-medium text-gray-900">
                           {customer.firstName} {customer.lastName}
                         </p>
-                        <p className="truncate text-sm text-slate-500">{customer.company ?? customer.email}</p>
+                        <p className="truncate text-sm text-gray-600">{customer.company ?? customer.email}</p>
                       </div>
-                      <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium capitalize text-slate-700">
+                      <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium capitalize text-gray-700">
                         {customer.status}
                       </span>
                     </div>
@@ -245,21 +245,21 @@ export default function DashboardPage() {
 
             <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-slate-900">Upcoming tasks</h2>
-                <Link to="/tasks" className="text-sm font-medium text-sky-600 hover:text-sky-500">
+                <h2 className="text-lg font-semibold text-gray-900">Upcoming tasks</h2>
+                <Link to="/tasks" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                   View all
                 </Link>
               </div>
               {upcomingTasks.length === 0 ? (
-                <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
-                  No open tasks. <Link to="/tasks/new" className="font-medium text-sky-600">Add a task</Link>
+                <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-gray-600">
+                  No open tasks. <Link to="/tasks/new" className="font-medium text-blue-600">Add a task</Link>
                 </p>
               ) : (
                 <div className="space-y-3">
                   {upcomingTasks.map((task) => (
                     <div key={task.id} className="rounded-lg border border-slate-200 p-3">
-                      <p className="font-medium text-slate-900">{task.title}</p>
-                      <div className="mt-2 flex items-center justify-between gap-2 text-xs text-slate-500">
+                      <p className="font-medium text-gray-900">{task.title}</p>
+                      <div className="mt-2 flex items-center justify-between gap-2 text-xs text-gray-600">
                         <span className="truncate">
                           {task.relatedCustomerId
                             ? customerNames.get(task.relatedCustomerId) ?? "Customer unavailable"
@@ -276,28 +276,28 @@ export default function DashboardPage() {
 
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900">Recently updated deals</h2>
-              <Link to="/deals" className="text-sm font-medium text-sky-600 hover:text-sky-500">
+              <h2 className="text-lg font-semibold text-gray-900">Recently updated deals</h2>
+              <Link to="/deals" className="text-sm font-medium text-blue-600 hover:text-blue-500">
                 Manage deals
               </Link>
             </div>
             {recentDeals.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
-                No deals yet. <Link to="/deals/new" className="font-medium text-sky-600">Add a deal</Link>
+              <p className="rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-gray-600">
+                No deals yet. <Link to="/deals/new" className="font-medium text-blue-600">Add a deal</Link>
               </p>
             ) : (
               <div className="space-y-3">
                 {recentDeals.map((deal) => (
                   <div key={deal.id} className="flex flex-col gap-2 rounded-lg border border-slate-200 p-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="font-medium text-slate-900">{deal.title}</p>
-                      <p className="text-sm text-slate-500">
+                      <p className="font-medium text-gray-900">{deal.title}</p>
+                      <p className="text-sm text-gray-600">
                         {customerNames.get(deal.customerId) ?? "Customer unavailable"} · <span className="capitalize">{deal.stage}</span>
                       </p>
                     </div>
                     <div className="text-left sm:text-right">
-                      <p className="font-semibold text-slate-900">${deal.amount.toLocaleString()}</p>
-                      <p className="text-xs text-slate-500">{deal.closeDate ? `Close ${deal.closeDate}` : "No close date"}</p>
+                      <p className="font-semibold text-gray-900">${deal.amount.toLocaleString()}</p>
+                      <p className="text-xs text-gray-600">{deal.closeDate ? `Close ${deal.closeDate}` : "No close date"}</p>
                     </div>
                   </div>
                 ))}
@@ -306,9 +306,9 @@ export default function DashboardPage() {
           </section>
 
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Recent activity</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Recent activity</h2>
             {data.activities.length === 0 ? (
-              <p className="mt-4 rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
+              <p className="mt-4 rounded-lg border border-dashed border-slate-300 p-5 text-center text-sm text-gray-600">
                 Activity will appear here as you create or update customers, deals, and tasks.
               </p>
             ) : (
@@ -319,14 +319,14 @@ export default function DashboardPage() {
                     className="flex flex-col gap-2 rounded-lg border border-slate-200 p-3 sm:flex-row sm:items-center sm:justify-between"
                   >
                     <div>
-                      <p className="font-medium text-slate-900">{activity.message}</p>
-                      <p className="mt-1 text-xs capitalize text-slate-500">
+                      <p className="font-medium text-gray-900">{activity.message}</p>
+                      <p className="mt-1 text-xs capitalize text-gray-600">
                         {activity.type.replaceAll("-", " ")}
                       </p>
                     </div>
                     <time
                       dateTime={activity.createdAt}
-                      className="shrink-0 text-xs text-slate-500"
+                      className="shrink-0 text-xs text-gray-600"
                     >
                       {new Date(activity.createdAt).toLocaleString()}
                     </time>

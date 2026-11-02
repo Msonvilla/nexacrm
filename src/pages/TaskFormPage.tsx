@@ -135,12 +135,12 @@ export default function TaskFormPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             {existingTask ? "Edit task" : "Add task"}
           </h1>
-          <p className="mt-2 text-sm text-slate-600">Set a clear follow-up and optionally link it to a customer.</p>
+          <p className="mt-2 text-sm text-gray-600">Set a clear follow-up and optionally link it to a customer.</p>
         </div>
-        <Link to="/tasks" className="text-sm font-medium text-slate-600 hover:text-slate-500">
+        <Link to="/tasks" className="text-sm font-medium text-gray-600 hover:text-gray-600">
           Back to tasks
         </Link>
       </div>
@@ -152,29 +152,29 @@ export default function TaskFormPage() {
           </p>
         )}
         {loading ? (
-          <p className="py-8 text-center text-sm text-slate-500">Loading task...</p>
+          <p className="py-8 text-center text-sm text-gray-600">Loading task...</p>
         ) : (
           <>
             <div className="grid gap-5 md:grid-cols-2">
               <label className="block md:col-span-2">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Task title</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Task title</span>
                 <input
                   name="title"
                   value={form.title}
                   onChange={handleChange}
                   required
                   maxLength={160}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Related customer</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Related customer</span>
                 <select
                   name="relatedCustomerId"
                   value={form.relatedCustomerId}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 >
                   <option value="">No customer</option>
                   {customers.map((customer) => (
@@ -186,23 +186,23 @@ export default function TaskFormPage() {
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Due date</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Due date</span>
                 <input
                   type="date"
                   name="dueDate"
                   value={form.dueDate}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Status</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Status</span>
                 <select
                   name="status"
                   value={form.status}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 >
                   {Object.entries(statusLabels).map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
@@ -214,14 +214,14 @@ export default function TaskFormPage() {
             <div className="mt-6 flex justify-end gap-3">
               <Link
                 to="/tasks"
-                className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-slate-50"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={saving || Boolean(id && !existingTask)}
-                className="rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {saving ? "Saving..." : existingTask ? "Save changes" : "Create task"}
               </button>

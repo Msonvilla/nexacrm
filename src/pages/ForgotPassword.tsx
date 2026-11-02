@@ -44,18 +44,19 @@ export default function ForgotPassword() {
   }
 
   if (authLoading) {
-    return <p className="mx-auto mt-10 max-w-sm p-4 text-slate-600">Checking your account...</p>;
+    return <p className="font-inter min-h-screen bg-blue-50 p-8 text-center text-gray-600">Checking your account...</p>;
   }
   if (user?.emailVerified) {
     return <Navigate to="/dashboard" replace />;
   }
 
   return (
-    <div className="mx-auto mt-10 max-w-sm p-4">
-      <h1 className="mb-2 text-2xl font-bold">Reset your password</h1>
-      <p className="mb-4 text-sm text-slate-600">We’ll email you a link to choose a new password.</p>
+    <div className="font-inter flex min-h-screen items-center justify-center bg-blue-50 px-4 py-10">
+      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+      <h1 className="mb-2 text-2xl font-bold text-gray-900">Reset your password</h1>
+      <p className="mb-5 text-sm text-gray-600">We’ll email you a link to choose a new password.</p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <label className="text-sm font-medium text-slate-700" htmlFor="reset-email">Email</label>
+        <label className="text-sm font-medium text-gray-700" htmlFor="reset-email">Email</label>
         <input
           id="reset-email"
           type="email"
@@ -63,12 +64,12 @@ export default function ForgotPassword() {
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
           required
-          className="rounded border p-2"
+          className="rounded-lg border border-slate-300 px-3 py-2.5 text-gray-900 outline-none focus:border-gray-400"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded bg-blue-600 p-2 text-white disabled:opacity-50"
+          className="rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
           {loading ? "Sending..." : "Send reset link"}
         </button>
@@ -79,9 +80,10 @@ export default function ForgotPassword() {
           If an account uses this email, a password reset link has been sent.
         </p>
       )}
-      <Link to="/login" className="mt-4 inline-block text-sm text-blue-700 hover:underline">
+      <Link to="/login" className="mt-5 inline-block text-sm text-blue-700 hover:underline">
         Back to login
       </Link>
+      </section>
     </div>
   );
 }

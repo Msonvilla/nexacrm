@@ -90,22 +90,23 @@ export default function Login() {
   }
 
   if (authLoading) {
-    return <p className="mx-auto mt-10 max-w-sm p-4 text-slate-600">Checking your account...</p>;
+    return <p className="font-inter min-h-screen bg-blue-50 p-8 text-center text-gray-600">Checking your account...</p>;
   }
   if (user?.emailVerified) {
     return <Navigate to="/dashboard" replace />;
   }
 
   return (
-    <div className="mx-auto mt-10 max-w-sm p-4">
-      <h1 className="mb-4 text-2xl font-bold">Log in</h1>
+    <div className="font-inter flex min-h-screen items-center justify-center bg-blue-50 px-4 py-10">
+      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+      <h1 className="mb-6 text-2xl font-bold text-gray-900">Log in</h1>
       {verificationNotice && (
-        <p role="status" className="mb-3 rounded border border-sky-200 bg-sky-50 p-3 text-sm text-sky-800">
+        <p role="status" className="mb-3 rounded border border-slate-200 bg-slate-50 p-3 text-sm text-gray-600">
           {verificationNotice}
         </p>
       )}
       <form onSubmit={handleEmailSignIn} className="flex flex-col gap-3">
-        <label className="text-sm font-medium text-slate-700" htmlFor="login-email">Email</label>
+        <label className="text-sm font-medium text-gray-700" htmlFor="login-email">Email</label>
         <input
           id="login-email"
           type="email"
@@ -113,9 +114,9 @@ export default function Login() {
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
           required
-          className="rounded border p-2"
+          className="rounded-lg border border-slate-300 px-3 py-2.5 text-gray-900 outline-none focus:border-gray-400"
         />
-        <label className="text-sm font-medium text-slate-700" htmlFor="login-password">Password</label>
+        <label className="text-sm font-medium text-gray-700" htmlFor="login-password">Password</label>
         <input
           id="login-password"
           type="password"
@@ -123,17 +124,17 @@ export default function Login() {
           onChange={(event) => setPassword(event.target.value)}
           autoComplete="current-password"
           required
-          className="rounded border p-2"
+          className="rounded-lg border border-slate-300 px-3 py-2.5 text-gray-900 outline-none focus:border-gray-400"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
           {loading ? "Signing in..." : "Log in"}
         </button>
       </form>
-      <div className="my-4 flex items-center gap-3 text-sm text-slate-500">
+      <div className="my-5 flex items-center gap-3 text-sm text-gray-600">
         <span className="h-px flex-1 bg-slate-200" />
         <span>or</span>
         <span className="h-px flex-1 bg-slate-200" />
@@ -142,15 +143,16 @@ export default function Login() {
         type="button"
         onClick={handleGoogleSignIn}
         disabled={loading}
-        className="w-full rounded border border-slate-300 p-2 font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+        className="w-full rounded-lg border border-slate-300 px-4 py-2.5 font-medium text-gray-700 hover:bg-slate-50 disabled:opacity-50"
       >
         {loading ? "Signing in..." : "Continue with Google"}
       </button>
       {error && <p role="alert" className="mt-3 text-red-600">{error}</p>}
-      <div className="mt-4 flex justify-between text-sm">
+      <div className="mt-5 flex justify-between text-sm">
         <Link to="/forgot-password" className="text-blue-700 hover:underline">Forgot password?</Link>
         <Link to="/register" className="text-blue-700 hover:underline">Create account</Link>
       </div>
+      </section>
     </div>
   );
 }

@@ -13,8 +13,8 @@ const statuses: { value: TaskStatus | "all"; label: string }[] = [
 ];
 
 const statusStyles: Record<TaskStatus, string> = {
-  todo: "bg-slate-100 text-slate-700",
-  "in-progress": "bg-sky-100 text-sky-700",
+  todo: "bg-slate-100 text-gray-700",
+  "in-progress": "bg-slate-100 text-gray-700",
   done: "bg-emerald-100 text-emerald-700",
 };
 
@@ -128,23 +128,23 @@ export default function TasksPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Tasks</h1>
-          <p className="mt-2 text-sm text-slate-600">Keep follow-ups and customer work moving forward.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Tasks</h1>
+          <p className="mt-2 text-sm text-gray-600">Keep follow-ups and customer work moving forward.</p>
         </div>
         <Link
           to="/tasks/new"
-          className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500"
+          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
         >
           New task
         </Link>
       </div>
 
       <label className="block max-w-xs rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-        <span className="mb-1 block text-sm font-medium text-slate-700">Filter by status</span>
+        <span className="mb-1 block text-sm font-medium text-gray-700">Filter by status</span>
         <select
           value={filter}
           onChange={(event) => setFilter(event.target.value as TaskStatus | "all")}
-          className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-sky-400"
+          className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-gray-400"
         >
           {statuses.map((status) => (
             <option key={status.value} value={status.value}>{status.label}</option>
@@ -160,9 +160,9 @@ export default function TasksPage() {
 
       <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         {loading ? (
-          <p className="p-8 text-center text-sm text-slate-500">Loading tasks...</p>
+          <p className="p-8 text-center text-sm text-gray-600">Loading tasks...</p>
         ) : visibleTasks.length === 0 ? (
-          <p className="p-8 text-center text-sm text-slate-500">
+          <p className="p-8 text-center text-sm text-gray-600">
             {tasks.length === 0 ? "No tasks yet. Create a task to get started." : "No tasks in this status."}
           </p>
         ) : (
@@ -170,8 +170,8 @@ export default function TasksPage() {
             {visibleTasks.map((task) => (
               <li key={task.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
-                  <h2 className="break-words font-semibold text-slate-900">{task.title}</h2>
-                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500">
+                  <h2 className="break-words font-semibold text-gray-900">{task.title}</h2>
+                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-600">
                     <span>
                       {task.relatedCustomerId
                         ? customerNames.get(task.relatedCustomerId) ?? "Customer unavailable"
@@ -189,13 +189,13 @@ export default function TasksPage() {
                     value={task.status}
                     disabled={updatingId === task.id || deletingId === task.id}
                     onChange={(event) => void changeStatus(task, event.target.value as TaskStatus)}
-                    className="rounded-lg border border-slate-200 px-2.5 py-2 text-sm outline-none focus:border-sky-400 disabled:opacity-50"
+                    className="rounded-lg border border-slate-200 px-2.5 py-2 text-sm outline-none focus:border-gray-400 disabled:opacity-50"
                   >
                     {statuses.filter((status) => status.value !== "all").map((status) => (
                       <option key={status.value} value={status.value}>{status.label}</option>
                     ))}
                   </select>
-                  <Link to={`/tasks/${task.id}/edit`} className="text-sm font-medium text-sky-600 hover:text-sky-500">
+                  <Link to={`/tasks/${task.id}/edit`} className="text-sm font-medium text-blue-600 hover:text-blue-500">
                     Edit
                   </Link>
                   <button

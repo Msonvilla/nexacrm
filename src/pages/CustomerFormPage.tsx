@@ -144,15 +144,15 @@ export default function CustomerFormPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             {existingCustomer ? "Edit customer" : "Add customer"}
           </h1>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-gray-600">
             Capture the key details needed to manage the customer relationship.
           </p>
         </div>
 
-        <Link to="/customers" className="text-sm font-medium text-slate-600 hover:text-slate-500">
+        <Link to="/customers" className="text-sm font-medium text-gray-600 hover:text-gray-600">
           Back to list
         </Link>
       </div>
@@ -164,71 +164,71 @@ export default function CustomerFormPage() {
           </p>
         )}
         {loading ? (
-          <p className="py-8 text-center text-sm text-slate-500">Loading customer...</p>
+          <p className="py-8 text-center text-sm text-gray-600">Loading customer...</p>
         ) : (
           <>
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-slate-700">First name</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">First name</span>
             <input
               name="firstName"
               value={form.firstName}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
               required
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Last name</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Last name</span>
             <input
               name="lastName"
               value={form.lastName}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
               required
             />
           </label>
 
           <label className="block md:col-span-2">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Email</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Email</span>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
               required
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Phone</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Phone</span>
             <input
               name="phone"
               value={form.phone}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Company</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Company</span>
             <input
               name="company"
               value={form.company}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
             />
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Status</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Status</span>
             <select
               name="status"
               value={form.status}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
             >
               <option value="new">New</option>
               <option value="active">Active</option>
@@ -238,13 +238,13 @@ export default function CustomerFormPage() {
           </label>
 
           <label className="block md:col-span-2">
-            <span className="mb-1 block text-sm font-medium text-slate-700">Notes</span>
+            <span className="mb-1 block text-sm font-medium text-gray-700">Notes</span>
             <textarea
               name="notes"
               value={form.notes}
               onChange={handleChange}
               rows={4}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
             />
           </label>
         </div>
@@ -252,14 +252,14 @@ export default function CustomerFormPage() {
         <div className="mt-6 flex justify-end gap-3">
           <Link
             to="/customers"
-            className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-slate-50"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={saving || Boolean(id && !existingCustomer)}
-            className="rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500"
+            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
             {saving ? "Saving..." : existingCustomer ? "Save changes" : "Create customer"}
           </button>

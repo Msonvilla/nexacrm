@@ -159,12 +159,12 @@ export default function DealFormPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             {existingDeal ? "Edit deal" : "Add deal"}
           </h1>
-          <p className="mt-2 text-sm text-slate-600">Record the opportunity and keep its pipeline details up to date.</p>
+          <p className="mt-2 text-sm text-gray-600">Record the opportunity and keep its pipeline details up to date.</p>
         </div>
-        <Link to="/deals" className="text-sm font-medium text-slate-600 hover:text-slate-500">
+        <Link to="/deals" className="text-sm font-medium text-gray-600 hover:text-gray-600">
           Back to deals
         </Link>
       </div>
@@ -176,7 +176,7 @@ export default function DealFormPage() {
           </p>
         )}
         {loading ? (
-          <p className="py-8 text-center text-sm text-slate-500">Loading deal...</p>
+          <p className="py-8 text-center text-sm text-gray-600">Loading deal...</p>
         ) : (
           <>
             {customers.length === 0 && (
@@ -189,26 +189,26 @@ export default function DealFormPage() {
             )}
             <div className="grid gap-5 md:grid-cols-2">
               <label className="block md:col-span-2">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Deal name</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Deal name</span>
                 <input
                   name="title"
                   value={form.title}
                   onChange={handleChange}
                   required
                   maxLength={120}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Customer</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Customer</span>
                 <select
                   name="customerId"
                   value={form.customerId}
                   onChange={handleChange}
                   required
                   disabled={customers.length === 0}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400 disabled:bg-slate-100"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400 disabled:bg-slate-100"
                 >
                   {customers.map((customer) => (
                     <option key={customer.id} value={customer.id}>
@@ -219,12 +219,12 @@ export default function DealFormPage() {
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Stage</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Stage</span>
                 <select
                   name="stage"
                   value={form.stage}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 >
                   {stageOptions.map((stage) => (
                     <option key={stage.value} value={stage.value}>{stage.label}</option>
@@ -233,7 +233,7 @@ export default function DealFormPage() {
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Amount</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Amount</span>
                 <input
                   type="number"
                   name="amount"
@@ -242,30 +242,30 @@ export default function DealFormPage() {
                   min="0"
                   step="0.01"
                   required
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
 
               <label className="block">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Expected close date</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Expected close date</span>
                 <input
                   type="date"
                   name="closeDate"
                   value={form.closeDate}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
 
               <label className="block md:col-span-2">
-                <span className="mb-1 block text-sm font-medium text-slate-700">Notes</span>
+                <span className="mb-1 block text-sm font-medium text-gray-700">Notes</span>
                 <textarea
                   name="notes"
                   value={form.notes}
                   onChange={handleChange}
                   rows={4}
                   maxLength={2000}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-sky-400"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-gray-400"
                 />
               </label>
             </div>
@@ -273,14 +273,14 @@ export default function DealFormPage() {
             <div className="mt-6 flex justify-end gap-3">
               <Link
                 to="/deals"
-                className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-slate-50"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={saving || customers.length === 0 || Boolean(id && !existingDeal)}
-                className="rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {saving ? "Saving..." : existingDeal ? "Save changes" : "Create deal"}
               </button>
