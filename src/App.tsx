@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AuthProvider from "./auth/AuthProvider";
 import { useAuth } from "./auth/AuthContext";
@@ -9,6 +10,7 @@ import CustomerFormPage from "./pages/CustomerFormPage";
 import CustomersPage from "./pages/CustomersPage";
 import DashboardPage from "./pages/DashboardPage";
 import ForgotPassword from "./pages/ForgotPassword";
+import LaunchScreen from "./pages/LaunchScreen";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import TaskFormPage from "./pages/TaskFormPage";
@@ -16,9 +18,15 @@ import TasksPage from "./pages/TasksPage";
 
 function HomeRedirect() {
   const { user, loading } = useAuth();
+  const [animationComplete, setAnimationComplete] = useState(false);
 
-  if (loading) {
-    return <p className="p-4">Loading...</p>;
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setAnimationComplete(true), 2000);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  if (loading || !animationComplete) {
+    return <LaunchScreen />;
   }
 
   return <Navigate to={user ? "/dashboard" : "/login"} replace />;
